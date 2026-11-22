@@ -40,5 +40,6 @@ jobs:
             echo "Evaluation report has no changes."
           else
             git commit -m "Add measured SMS spam model evaluation"
+            git pull --rebase origin main
             git push
           fi
