@@ -35,5 +35,8 @@ The experiment is successful if it:
 - Reports all specified evaluation metrics on unseen test data.
 - Discusses limitations and false-positive/false-negative risks honestly.
 
+### Observed baseline results
+The implemented baseline was evaluated on the stratified test split. It achieved 97.31% accuracy. For the spam class, precision was 1.0000, recall was 0.7987 and F1-score was 0.8881. The confusion matrix recorded 119 correctly identified spam messages and 30 spam messages predicted as ham. Full metrics are documented in [reports/evaluation.md](reports/evaluation.md).
+
 ### Scope boundary
 This project designs and evaluates a binary SMS text classifier. It does not implement a mobile application, sender authentication, malicious-link analysis or real-time carrier integration.
