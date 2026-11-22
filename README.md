@@ -57,4 +57,4 @@ This task focuses only on binary SMS text classification. It does not include li
 - Compare Naive Bayes with Logistic Regression.
 - Build a simple Streamlit demo after evaluating the baseline.
 
-See [problem_design.md](problem_design.md) for the full AI problem design, [BEGINNER_SETUP_GUIDE.md](BEGINNER_SETUP_GUIDE.md) for Windows setup instructions and [LINKEDIN_VIDEO_SCRIPT.md](LINKEDIN_VIDEO_SCRIPT.md) for a short presentation script.
+See [problem_design.md](problem_design.md) for the full AI problem design, [reports/evaluation.md](reports/evaluation.md) for the measured test results, [BEGINNER_SETUP_GUIDE.md](BEGINNER_SETUP_GUIDE.md) for Windows setup instructions and [LINKEDIN_VIDEO_SCRIPT.md](LINKEDIN_VIDEO_SCRIPT.md) for a short presentation script. A GitHub Actions workflow reruns training and evaluation when the project code or workflow changes.
