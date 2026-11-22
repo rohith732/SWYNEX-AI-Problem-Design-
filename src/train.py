@@ -1,4 +1,4 @@
-"""Train and evaluate an SMS spam classifier using the official UCI dataset."""
+"""Train and evaluate an SMS spam classifier using the official UCI dataset.\n\nThe GitHub Actions workflow runs this script and commits the measured report.\n"""
 
 from __future__ import annotations
 
