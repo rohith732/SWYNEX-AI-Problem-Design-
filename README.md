@@ -48,10 +48,14 @@ python src/train.py
 
 The first run needs an internet connection to download the public UCI dataset. The script prints the test metrics and then lets you try one SMS message.
 
-### 8. Project scope
+### 8. Measured baseline result
+
+The 80:20 stratified test run achieved **97.31% accuracy** across 1,115 held-out messages. For the spam class, precision was **100.00%**, recall was **79.87%**, and F1-score was **88.81%**. The confusion matrix shows that 30 spam messages were missed. See [the full evaluation report](reports/evaluation.md).
+
+### 9. Project scope
 This task focuses only on binary SMS text classification. It does not include live phone integration, URL scanning, sender verification, deep learning or automatic message blocking.
 
-### 9. Future improvements
+### 10. Future improvements
 - Add Tamil and code-mixed SMS examples.
 - Evaluate on a newer, separately collected dataset.
 - Compare Naive Bayes with Logistic Regression.
