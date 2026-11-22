@@ -2,18 +2,21 @@
 
 Hello everyone! I have completed Task 1, AI Problem Design, as part of my internship journey with SWYNEX Technologies.
 
-For this task, I selected a practical problem: identifying spam SMS messages. The goal is to classify a text message into two categories: Spam or Ham, which means a legitimate message.
+For this task, I designed an SMS Spam Message Classification system. It classifies a message as Spam or Ham, which means a legitimate message.
 
-I selected the UCI SMS Spam Collection, a public dataset containing labelled SMS messages. My proposed approach uses TF-IDF to convert text into numerical features and a Multinomial Naive Bayes classifier to make predictions.
+I used the UCI SMS Spam Collection dataset with 5,574 labelled messages. My baseline model uses TF-IDF text features and a Multinomial Naive Bayes classifier.
 
-I also documented the intended user, dataset source, project constraints, possible classification errors and evaluation metrics such as accuracy, precision, recall, F1-score and the confusion matrix.
+On a held-out test set of 1,115 messages, the model achieved 97.31% accuracy. For spam messages, precision was 100% and recall was 79.87%. The confusion matrix showed that 30 spam messages were missed, which demonstrates why recall is important alongside accuracy.
 
-This task helped me understand how to define a focused real-world AI problem and decide how to evaluate a solution.
+I documented the target user, dataset source, methodology, success criteria, constraints and limitations.
+
+This task helped me understand how to turn a real-world problem into a focused AI experiment with measurable results.
 
 Thank you!
 
 ## Recording checklist
-- Keep the video around 30–45 seconds.
+- Keep the video around 35–50 seconds.
 - Show the GitHub README or problem-design document while explaining.
-- Show the model output only after you have successfully run it.
-- Do not claim a performance score unless it is shown by your actual test run.
+- Show the visual confusion matrix from reports/confusion_matrix.svg.
+- Show the evaluation report and measured metrics.
+- Do not claim this educational prototype is ready to block real messages.
