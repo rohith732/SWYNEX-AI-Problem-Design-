@@ -1,22 +1,15 @@
-# LinkedIn post — SWYNEX Task 2
+I’ve been working on a small machine-learning prototype for SMS spam detection as part of Task 2 with SWYNEX Technologies.
 
-Completed **Task 2: Model or API Integration** as part of my internship with **@SWYNEX Technologies**.
+The idea is simple: enter a text message and let a trained model classify it as likely **Spam** or **Ham (not spam)**.
 
-For this task, I extended my SMS Spam Message Classification project by integrating a machine-learning model into a small interactive web application using **Python and Streamlit**.
+For the prototype, I connected a TF-IDF text-processing pipeline with a Multinomial Naive Bayes classifier and built a lightweight interface using Python and Streamlit. I also included example messages and a confidence estimate so the prediction is easier to understand.
 
-### What I built
-- A text box to enter an SMS message.
-- A TF-IDF + Multinomial Naive Bayes classification pipeline.
-- A one-click prediction of **Spam** or **Ham (Not Spam)**.
-- A model confidence display and example messages.
-- Clear privacy notes and limitations.
+One important takeaway: a model prediction is not a guarantee. The dataset is historical and English-focused, so this demo should be treated as a learning prototype—not a replacement for a phone’s spam protection, especially for Tamil or code-mixed messages.
 
-The prototype uses the UCI SMS Spam Collection dataset. It is a learning/demo application, not a production spam filter.
+Project and source code: https://github.com/rohith732/SWYNEX-AI-Problem-Design-
 
-This task helped me understand how a trained ML model can be connected to a user-facing application and how to communicate model predictions responsibly.
-
-**GitHub repository:** https://github.com/rohith732/SWYNEX-AI-Problem-Design-
+Thanks to SWYNEX Technologies for the opportunity to practise connecting an ML model to a user-facing application.
 
 @SWYNEX Technologies
 
-#SWYNEX #Internship #MachineLearning #Python #Streamlit #NLP #ArtificialIntelligence #SpamDetection
+#SWYNEX #Internship #MachineLearning #Python #Streamlit #NLP #SpamDetection
