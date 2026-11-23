@@ -1,0 +1,1 @@
+Trigger GitHub Actions to fetch the official UCI Adult dataset and generate the cleaned CSV and quality report.
