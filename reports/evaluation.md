@@ -19,8 +19,6 @@
 
 ## Overall result
 
-![Test metrics and confusion matrix](confusion_matrix.svg)
-
 - Test messages: **1,115**
 - Accuracy: **0.9731 (97.31%)**
 
