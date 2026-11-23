@@ -1,0 +1,53 @@
+name: Run SWYNEX Task 1 data cleaning
+
+on:
+  push:
+    paths:
+      - "Task-1-Data-Cleaning/**"
+      - ".github/workflows/swynex-task1.yml"
+  workflow_dispatch:
+
+jobs:
+  clean-and-validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Task-1-Data-Cleaning
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Download and clean official UCI dataset
+        run: python src/clean_data.py
+      - name: Validate generated outputs
+        run: |
+          test -s data/raw/adult_raw.csv
+          test -s data/processed/adult_cleaned.csv
+          test -s reports/data_quality_report.json
+          python - <<'PY'
+          import json, pandas as pd
+          from pathlib import Path
+          df = pd.read_csv("data/processed/adult_cleaned.csv")
+          report = json.loads(Path("reports/data_quality_report.json").read_text())
+          assert len(df) == report["rows_after"]
+          assert df.shape[1] == report["columns"]
+          print("Cleaned CSV shape:", df.shape)
+          print("Quality report validated.")
+          PY
+      - name: Upload cleaned dataset and report
+        uses: actions/upload-artifact@v4
+        with:
+          name: swynex-task1-cleaned-output
+          path: |
+            Task-1-Data-Cleaning/data/raw/adult_raw.csv
+            Task-1-Data-Cleaning/data/processed/adult_cleaned.csv
+            Task-1-Data-Cleaning/reports/data_quality_report.json
+          if-no-files-found: error
+          retention-days: 30
