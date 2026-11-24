@@ -90,10 +90,11 @@ if not numeric.empty:
     variances = numeric.var(numeric_only=True).sort_values(ascending=False)
     insights.append(f"'{variances.index[0]}' has the highest numeric variance ({variances.iloc[0]:,.2f}).")
     if numeric.shape[1] > 1:
-        abs_corr = numeric.corr(numeric_only=True).abs()
-        np.fill_diagonal(abs_corr.values, 0)
-        pair = abs_corr.stack().idxmax()
-        insights.append(f"The strongest absolute numeric correlation is between '{pair[0]}' and '{pair[1]}' ({abs_corr.loc[pair[0], pair[1]]:.3f}).")
+        corr_values = numeric.corr(numeric_only=True).abs().to_numpy(copy=True)
+        np.fill_diagonal(corr_values, 0)
+        row_idx, col_idx = np.unravel_index(np.argmax(corr_values), corr_values.shape)
+        pair = (numeric.columns[row_idx], numeric.columns[col_idx])
+        insights.append(f"The strongest absolute numeric correlation is between '{pair[0]}' and '{pair[1]}' ({corr_values[row_idx, col_idx]:.3f}).")
     else:
         insights.append(f"'{numeric.columns[0]}' is the only numeric feature available for correlation analysis.")
 else:
