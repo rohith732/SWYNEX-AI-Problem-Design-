@@ -1,0 +1,5 @@
+Dataset: UCI Adult / Census Income
+Rows: 48790
+Columns: 15
+Numeric columns: 6
+Categorical columns: 9

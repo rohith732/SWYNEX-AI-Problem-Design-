@@ -1,0 +1,7 @@
+1. The cleaned dataset contains 48,790 records and 15 columns.
+2. The dataset contains 0 missing cells.
+3. No null values were found in the loaded cleaned dataset.
+4. 'fnlwgt' has the highest numeric variance (11,154,999,533.12).
+5. The strongest absolute numeric correlation is between 'education_num' and 'hours_per_week' (0.144).
+6. The most common 'income' category is '<=50K' (76.1% of records).
+7. In 'workclass', the most frequent category is 'Private' (33,860 records).
