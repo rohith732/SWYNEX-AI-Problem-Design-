@@ -1,0 +1,48 @@
+name: SWYNEX Task 2 - Exploratory Data Analysis
+
+on:
+  push:
+    paths:
+      - "Task-2-Exploratory-Data-Analysis/**"
+      - "Task-1-Data-Cleaning/src/**"
+      - ".github/workflows/swynex-task2-eda.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  exploratory-data-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Install Task 1 and Task 2 dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r Task-1-Data-Cleaning/requirements.txt
+          pip install -r Task-2-Exploratory-Data-Analysis/requirements.txt
+      - name: Clean source dataset using Task 1 pipeline
+        run: python Task-1-Data-Cleaning/src/clean_data.py
+      - name: Run Task 2 exploratory analysis
+        run: python Task-2-Exploratory-Data-Analysis/eda.py
+      - name: Upload charts and reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: SWYNEX-Task-2-EDA-Reports
+          path: Task-2-Exploratory-Data-Analysis/outputs/
+          if-no-files-found: error
+      - name: Commit generated text and CSV reports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Task-2-Exploratory-Data-Analysis/outputs/*.txt Task-2-Exploratory-Data-Analysis/outputs/*.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "Add generated SWYNEX Task 2 EDA reports"
+            git push
+          fi
