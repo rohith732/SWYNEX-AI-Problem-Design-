@@ -15,8 +15,9 @@ def load_data():
     test["source_split"] = "Test"
     raw = pd.concat([train, test], ignore_index=True)
     raw["income"] = raw["income"].astype("string").str.replace(".", "", regex=False).str.strip()
-    duplicate_count = int(raw.duplicated().sum())
-    clean = raw.drop_duplicates().copy()
+    # Deduplicate across train/test; source_split is metadata, not a record attribute.
+    duplicate_count = int(raw.duplicated(subset=[c for c in raw.columns if c != "source_split"]).sum())
+    clean = raw.drop_duplicates(subset=[c for c in raw.columns if c != "source_split"]).copy()
     for col in clean.select_dtypes(include=["object", "string"]).columns:
         clean[col] = clean[col].fillna("Unknown").astype(str).str.strip()
     return clean, len(raw), duplicate_count
@@ -41,7 +42,7 @@ for col, vals in filters.items():
 st.subheader("Dataset overview")
 a,b,c,d = st.columns(4)
 a.metric("Original records", f"{original_rows:,}")
-b.metric("Clean records", f"{len(df):,}", delta=f"-{duplicates:,} duplicates")
+b.metric("Clean records", f"{len(df):,}", delta=f"-{duplicates:,} exact duplicates")
 c.metric("Filtered records", f"{len(view):,}")
 d.metric("Input attributes", "14")
 st.caption("Historical 1994 US Census data. All chart values are calculated from the downloaded UCI dataset.")
@@ -49,22 +50,22 @@ left,right = st.columns(2)
 with left:
     st.subheader("Income distribution")
     counts = view["income"].value_counts().rename_axis("Income").reset_index(name="Records")
-    st.plotly_chart(px.pie(counts, names="Income", values="Records", hole=.5, color_discrete_sequence=["#4169a1","#e6a04b"]), use_container_width=True)
+    st.plotly_chart(px.pie(counts, names="Income", values="Records", hole=.5), use_container_width=True)
 with right:
     st.subheader("Average weekly hours by income")
     hours = view.groupby("income", as_index=False)["hours-per-week"].mean()
-    st.plotly_chart(px.bar(hours, x="income", y="hours-per-week", color="income", color_discrete_sequence=["#4169a1","#e6a04b"]), use_container_width=True)
+    st.plotly_chart(px.bar(hours, x="income", y="hours-per-week", color="income"), use_container_width=True)
 left,right = st.columns(2)
 with left:
     st.subheader("Education vs income")
     edu = view.groupby(["education","income"]).size().reset_index(name="Records")
-    st.plotly_chart(px.bar(edu, x="education", y="Records", color="income", barmode="group", color_discrete_sequence=["#4169a1","#e6a04b"]), use_container_width=True)
+    st.plotly_chart(px.bar(edu, x="education", y="Records", color="income", barmode="group"), use_container_width=True)
 with right:
     st.subheader("Top occupations")
     occ = view["occupation"].value_counts().head(12).rename_axis("Occupation").reset_index(name="Records")
-    st.plotly_chart(px.bar(occ, x="Records", y="Occupation", orientation="h", color_discrete_sequence=["#4169a1"]), use_container_width=True)
+    st.plotly_chart(px.bar(occ, x="Records", y="Occupation", orientation="h"), use_container_width=True)
 st.subheader("Age distribution")
-st.plotly_chart(px.histogram(view, x="age", color="income", barmode="overlay", opacity=.65, nbins=30, color_discrete_sequence=["#4169a1","#e6a04b"]), use_container_width=True)
+st.plotly_chart(px.histogram(view, x="age", color="income", barmode="overlay", opacity=.65, nbins=30), use_container_width=True)
 st.subheader("Business insights")
 hi = view[view.income == ">50K"]
 lo = view[view.income == "<=50K"]
