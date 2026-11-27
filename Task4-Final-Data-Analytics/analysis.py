@@ -14,8 +14,9 @@ def load_clean():
         frame["income"] = frame["income"].astype("string").str.replace(".", "", regex=False).str.strip()
         frames.append(frame)
     raw = pd.concat(frames, ignore_index=True)
-    duplicate_count = int(raw.duplicated().sum())
-    clean = raw.drop_duplicates().copy()
+    record_cols = [c for c in raw.columns if c != "source_split"]
+    duplicate_count = int(raw.duplicated(subset=record_cols).sum())
+    clean = raw.drop_duplicates(subset=record_cols).copy()
     missing = clean.isna().sum().sort_values(ascending=False)
     for col in clean.select_dtypes(include=["object", "string"]).columns:
         clean[col] = clean[col].fillna("Unknown").astype(str).str.strip()
